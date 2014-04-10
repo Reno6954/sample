@@ -6,11 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener{
-
+	
 	TextView text2;
 	
 	@Override
@@ -29,6 +30,10 @@ public class MainActivity extends Activity implements OnClickListener{
 		
 		Button button2 = (Button)findViewById(R.id.button2);
 		button2.setOnClickListener(this);
+		
+		Button button3 = (Button)findViewById(R.id.button3);
+		button3.setOnClickListener(this);
+		
 	}
 
 	@Override
@@ -36,7 +41,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		// TODO 自動生成されたメソッド・スタブ
 		super.onStart();
 		
-		Toast.makeText(this,"onStart", Toast.LENGTH_LONG).show();
+		//Toast.makeText(this,"onStart", Toast.LENGTH_LONG).show();
 	}
 
 	@Override
@@ -44,7 +49,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		// TODO 自動生成されたメソッド・スタブ
 		super.onRestart();
 		
-		Toast.makeText(this,"onRestart", Toast.LENGTH_LONG).show();
+		//Toast.makeText(this,"onRestart", Toast.LENGTH_LONG).show();
 	}
 
 	@Override
@@ -52,7 +57,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		// TODO 自動生成されたメソッド・スタブ
 		super.onResume();
 		
-		Toast.makeText(this,"onResume", Toast.LENGTH_LONG).show();
+		//Toast.makeText(this,"onResume", Toast.LENGTH_LONG).show();
 	}
 
 	@Override
@@ -60,7 +65,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		// TODO 自動生成されたメソッド・スタブ
 		super.onPause();
 		
-		Toast.makeText(this,"onPause", Toast.LENGTH_LONG).show();
+		//Toast.makeText(this,"onPause", Toast.LENGTH_LONG).show();
 	}
 
 	@Override
@@ -68,7 +73,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		// TODO 自動生成されたメソッド・スタブ
 		super.onStop();
 		
-		Toast.makeText(this,"onStop", Toast.LENGTH_LONG).show();
+		//Toast.makeText(this,"onStop", Toast.LENGTH_LONG).show();
 	}
 
 	@Override
@@ -76,7 +81,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		// TODO 自動生成されたメソッド・スタブ
 		super.onDestroy();
 		
-		Toast.makeText(this,"onDestroy", Toast.LENGTH_LONG).show();
+		//Toast.makeText(this,"onDestroy", Toast.LENGTH_LONG).show();
 	}
 
 	@Override
@@ -90,6 +95,19 @@ public class MainActivity extends Activity implements OnClickListener{
 		case R.id.button2:
 			text2.setText("ボタン2が押されたよ");
 			startActivity(new Intent(this, Activity3.class));
+			break;
+		case R.id.button3:
+			EditText editText1 = (EditText)findViewById(R.id.editText1);
+			EditText editText2 = (EditText)findViewById(R.id.editText2);
+			EditText editText3 = (EditText)findViewById(R.id.editText3);
+			String text1 = editText1.getText().toString();
+			String text2 = editText2.getText().toString();
+			String text3 = editText3.getText().toString();
+			Intent intent = new Intent(this,NewActivity.class);
+			intent.putExtra("val_1", text1);
+			intent.putExtra("val_2", text2);
+			intent.putExtra("val_3", text3);
+			startActivity(intent);
 			break;
 		default:
 			break;
