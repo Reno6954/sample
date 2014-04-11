@@ -1,8 +1,19 @@
 package com.ex.helloworld;
 
+import java.net.HttpURLConnection;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -34,6 +45,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		Button button3 = (Button)findViewById(R.id.button3);
 		button3.setOnClickListener(this);
 		
+		new PostMessageTask().execute();		
 	}
 
 	@Override
@@ -113,6 +125,42 @@ public class MainActivity extends Activity implements OnClickListener{
 			break;
 		}
 		
+	}
+	
+	//アシンクタスクローダーを継承したクラスを作成
+	public class PostMessageTask extends AsyncTask<String, Integer, String> {
+		String html;
+	    @Override
+	    protected String doInBackground(String... contents) {
+	    	HttpClient c = new DefaultHttpClient();
+	        HttpGet g = new HttpGet("http://www.google.co.jp/");
+	        byte[] result = null;
+	        
+	        try{
+	            HttpResponse response = c.execute(g);
+	            StatusLine statusLine = response.getStatusLine();
+	            if(statusLine.getStatusCode() != HttpURLConnection.HTTP_OK){
+	                Log.e("Connection.download", "download failed");
+	            }
+	            else{
+	                result = EntityUtils.toByteArray(response.getEntity());
+	            }
+	            html =  new String(result, "Shift-JIS");
+	            Log.d("log", new String(result, "Shift-JIS"));
+	        }
+	        catch(Exception e){
+	        }
+	    	return html;
+	    }
+
+		@Override
+		protected void onPostExecute(String result) {
+			// TODO 自動生成されたメソッド・スタブ
+			super.onPostExecute(result);
+			Log.e("google", "asdf"+result);
+			text2.setText(result);
+		}
+	 
 	}
 
 }
